@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="30" tilewidth="32" tileheight="32" nextobjectid="15">
+ <tileset firstgid="1" name="Tileset" tilewidth="64" tileheight="64">
+  <image source="../../Downloads/graphicriver-5296875-platformer-game-tile-set-9/tmx/Tileset.png" width="512" height="576"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="type" value="fondo"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="fondo"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="fondo" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="type" value="fondo"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="fondo" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="fondo" value=""/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="64">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="65">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="66">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="67">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="type" value="suelo"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="73" name="troch (1)" tilewidth="32" tileheight="32">
+  <image source="../../Downloads/graphicriver-5296875-platformer-game-tile-set-9/png/separate/items/troch (1).png" width="178" height="110"/>
+ </tileset>
+ <tileset firstgid="88" name="troch (4)" tilewidth="32" tileheight="32">
+  <image source="../../Downloads/graphicriver-5296875-platformer-game-tile-set-9/png/separate/items/troch (4).png" width="178" height="115"/>
+ </tileset>
+ <tileset firstgid="103" name="chest (2)" tilewidth="32" tileheight="32">
+  <image source="../../Downloads/graphicriver-5296875-platformer-game-tile-set-9/png/separate/items/chest (2).png" width="102" height="107"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="type" value="tesoro"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztmssOgjAQRUmMLtSVuNIVEBcG/ADw8f+fpSYzCRmptLTAAPck5EJDSkk50AJRBDSRUOa1nNLyJRN5pozF9liZNbTRlEAXSfsuk4PPaWw/Lk6tBhqBH/ADmIEf8AOYWYIfJ8q2sX8eOG9OrQYaWYIfuI+DrsAPAMzADwDMzNGPK6WGecCKcmeZQBdz9CMkqWf5gTK2TKAL+PGfwrOc/ZDf9OHHL+VnqWj9NWZDarAf656Ps6U0jSv2PR+/K6H86Pr86LtfhqKk1Hb9tyHnskyofuHxhryPyjxa1mNbHoox/Ygbyufiy1SQfpj6i/tlY1lvKtLXD9frVAuh5x8Yhw0Lv+ux/b/0SVk55sOzXvbgLrIw7K8lXf14AzapKIM=
+  </data>
+ </layer>
+ <layer name="Sobre" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt2rENADAIAzC2PtQP+P8n9koVM8IeEykXJAIAYIYzdBsAAAAAAAAAgJ1u07+fFR8WNslPXhtBAJQ=
+  </data>
+ </layer>
+ <layer name="muerte" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztyaEBAAAIw7A9x/8vccEshsRUNAEAAAAAAAAAAACAO1PaPvDHAqRrAVo=
+  </data>
+ </layer>
+ <layer name="nocoli" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt07sNwkAURFFXQoQI6QMwfzD9d8I08ALbEiu050g3ebvpDAMAAAAAvdssfIMe7Ba+rXFIx3RKYzoXd37jkq7plu7pUdx71GIfz/RK7zSlT3GH1lrsA/6FfUDNPqBmH1CzD6jtZ7xti39z78B6X8DIC4M=
+  </data>
+ </layer>
+ <layer name="tesoro" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzsENgCAUBUG6RUSl/5sv1GDyPcwke9/WAAAAAAD4s56ONKpH2M4001U9wnanJ63qEQAAAAAAPvECjVwDxA==
+  </data>
+ </layer>
+ <objectgroup name="collision">
+  <object id="7" x="64" y="704">
+   <polyline points="0,0 384,192 640,192 640,128 704,128 704,64 768,64 768,0 1088,0 1088,192 1280,192 1280,64 1344,64 1344,192 1472,192 1472,64 1536,64 1536,192 2752,192 2752,-128 2816,-192 3136,-192 3136,-704"/>
+  </object>
+  <object id="9" x="64" y="704">
+   <polyline points="0,0 0,-640 1632,-640 1632,-128 1824,-128 1824,-384 2784,-384 2784,-640 3136,-640"/>
+  </object>
+  <object id="10" x="1728" y="736">
+   <polyline points="0,0 0,64 192,64 192,0 0,0"/>
+  </object>
+  <object id="11" x="2016" y="672">
+   <polyline points="0,0 0,64 160,64 160,0 0,0"/>
+  </object>
+  <object id="12" x="2304" y="576" width="64" height="256"/>
+  <object id="13" x="2496" y="576" width="64" height="256"/>
+  <object id="14" x="2688" y="576" width="64" height="256"/>
+ </objectgroup>
+</map>
