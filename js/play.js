@@ -159,11 +159,12 @@ var playState = {
 
 	createWorld: function() {
         this.map = game.add.tilemap('map');
-        this.map.addTilesetImage('tileset');
+        this.map.addTilesetImage('tileset');    
         this.layer = this.map.createLayer('Tile Layer 1');
         this.layer.resizeWorld();
         this.map.setCollision(1);
         
+        game.physics.arcade.enable(map);
 		game.physics.collide(this.player, this.layer);
         game.physics.collide(this.enemies, this.layer);
 	}
