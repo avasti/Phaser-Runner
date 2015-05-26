@@ -3,6 +3,7 @@ var playState = {
 	create: function() { 
         var map;
         var layer;
+
 		this.cursor = game.input.keyboard.createCursorKeys();
 		game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP, Phaser.Keyboard.DOWN, Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT]);
 		this.wasd = {
@@ -80,7 +81,7 @@ var playState = {
 	        this.player.frame = 0; 
 		}
 		
-		if ((this.cursor.up.isDown || this.wasd.up.isDown) && this.player.body.touching.onFloor()) {
+		if ((this.cursor.up.isDown || this.wasd.up.isDown) && this.player.body.onFloor()) {
 			this.jumpSound.play();
 			this.player.body.velocity.y = -320;
 		}
@@ -156,16 +157,16 @@ var playState = {
 	startMenu: function() {
 		game.state.start('menu');
 	},
-
-	createWorld: function() {
+    
+	createWorld: function() {        
         this.map = game.add.tilemap('map');
-        this.map.addTilesetImage('tileset');    
+        this.map.addTilesetImage('Tileset'); 
         this.layer = this.map.createLayer('Tile Layer 1');
         this.layer.resizeWorld();
         this.map.setCollision(1);
         
-        game.physics.arcade.enable(map);
-		game.physics.collide(this.player, this.layer);
-        game.physics.collide(this.enemies, this.layer);
+        //game.physics.arcade.enable(map);
+		game.physics.arcade.collide(this.player, this.layer);
+        game.physics.arcade.collide(this.enemies, this.layer);
 	}
 };
