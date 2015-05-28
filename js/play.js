@@ -1,7 +1,6 @@
 var playState = {
     
 	create: function() { 
-        
 		this.cursor = game.input.keyboard.createCursorKeys();
 		game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP, Phaser.Keyboard.DOWN, Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT]);
 		this.wasd = {
@@ -14,9 +13,7 @@ var playState = {
         game.world.setBounds(0, 0, 4480, 704);
         this.createWorld();
 		game.global.score = 0;
-		//this.createWorld();
-        //game.world.setBounds(0,0,4480,708);
-
+	
 		this.player = game.add.sprite(40, game.world.centerY, 'player');
 		game.physics.arcade.enable(this.player); 
 		this.player.anchor.setTo(0.5, 0.5);
@@ -27,6 +24,10 @@ var playState = {
         this.enemies = game.add.group();
 		this.enemies.enableBody = true;
 		this.enemies.createMultiple(10, 'enemy');
+        
+        this.enemiesfast = game.add.group();
+		this.enemiesfast.enableBody = true;
+		this.enemiesfast.createMultiple(1, 'enemyfast');
 
 		this.coin = game.add.sprite(60, 140, 'coin');
 		game.physics.arcade.enable(this.coin); 
@@ -39,24 +40,31 @@ var playState = {
 		this.emitter.setYSpeed(-150, 150);
 		this.emitter.setXSpeed(-150, 150);
 		this.emitter.gravity = 0;
+        
+        game.add.tween(this.coin).to({angle: -20}, 500).to({angle:20}, 500).loop().start();
 
 		this.jumpSound = game.add.audio('jump');
 		this.coinSound = game.add.audio('coin');
-		this.deadSound = game.add.audio('dead');	
+		this.deadSound = game.add.audio('dead');
+        this.bsoSound = game.add.audio('bso'); 
+        
+        this.bsoSound.play();
 		
 		this.nextEnemy = 0;
 	},
 
 	update: function() {
 		game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
+        game.physics.arcade.overlap(this.player, this.enemiesfast, this.playerDie, null, this);
 		game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
         game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.enemies, this.layer);
+        game.physics.arcade.collide(this.enemiesfast, this.layer);
 
 		if (!this.player.inWorld) {
 			this.playerDie();
 		}
-
+        this.scoreLabel.x = this.player.position.x;
 		this.movePlayer();
 
 		if (this.nextEnemy < game.time.now) {
@@ -65,6 +73,7 @@ var playState = {
             
 			  
 			this.addEnemy();
+            this.addEnemyFast();
 			this.nextEnemy = game.time.now + delay;
 		}
 	},
@@ -108,6 +117,22 @@ var playState = {
 
 		enemy.checkWorldBounds = true;
 		enemy.outOfBoundsKill = true;
+	},
+    
+    addEnemyFast: function() {
+		var enemyfast = this.enemiesfast.getFirstDead();
+		if (!enemyfast) {
+			return;
+		}
+
+		enemyfast.anchor.setTo(0.5, 1);
+		enemyfast.reset(game.world.centerX, 0);
+		enemyfast.body.gravity.y = 500;
+		enemyfast.body.bounce.x = 1;
+		enemyfast.body.velocity.x = 200 * Phaser.Math.randomSign();
+
+		enemyfast.checkWorldBounds = true;
+		enemyfast.outOfBoundsKill = true;
 	},
 
 	takeCoin: function(player, coin) {
@@ -157,20 +182,32 @@ var playState = {
 		this.emitter.x = this.player.x;
 		this.emitter.y = this.player.y;
 		this.emitter.start(true, 600, null, 15);
-
+        this.bsoSound.stop();
+        
 		game.time.events.add(1000, this.startMenu, this);
 	},
 
 	startMenu: function() {
+        align: "center"
 		game.state.start('menu');
 	},
-    
+        
 	createWorld: function() {     
         console.log("MAP");
         this.map = game.add.tilemap('map');
-        this.map.addTilesetImage('tileset'); 
+        this.map.addTilesetImage('tileset');
         this.layer = this.map.createLayer('Tile Layer 1');
+       
         this.layer.resizeWorld();
         this.map.setCollision(1);
+        this.map.setCollision(2);
+        this.map.setCollision(3);
+        //Diamante Rojo
+        //this.map.setCollision(4);
+        //Diamante azul
+        //this.map.setCollision(5);
+        this.map.setCollision(6);
+        this.map.setCollision(7);
+
 	}
 };
