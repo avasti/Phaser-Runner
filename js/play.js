@@ -1,21 +1,23 @@
 var playState = {
-
+    
 	create: function() { 
-        var map;
-        var layer;
-
+        
 		this.cursor = game.input.keyboard.createCursorKeys();
 		game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP, Phaser.Keyboard.DOWN, Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT]);
 		this.wasd = {
 			up: game.input.keyboard.addKey(Phaser.Keyboard.W),
 			left: game.input.keyboard.addKey(Phaser.Keyboard.A),
 			right: game.input.keyboard.addKey(Phaser.Keyboard.D)
+            
 		};
         
+        game.world.setBounds(0, 0, 4480, 704);
+        this.createWorld();
 		game.global.score = 0;
-		this.createWorld();
+		//this.createWorld();
+        //game.world.setBounds(0,0,4480,708);
 
-		this.player = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
+		this.player = game.add.sprite(40, game.world.centerY, 'player');
 		game.physics.arcade.enable(this.player); 
 		this.player.anchor.setTo(0.5, 0.5);
 		this.player.body.gravity.y = 500;
@@ -48,8 +50,8 @@ var playState = {
 	update: function() {
 		game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
 		game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
-		game.physics.arcade.collide(this.player, this.walls);
-		game.physics.arcade.collide(this.enemies, this.walls);
+        game.physics.arcade.collide(this.player, this.layer);
+        game.physics.arcade.collide(this.enemies, this.layer);
 
 		if (!this.player.inWorld) {
 			this.playerDie();
@@ -60,7 +62,8 @@ var playState = {
 		if (this.nextEnemy < game.time.now) {
 			var start = 4000, end = 1000, score = 100;
 			var delay = Math.max(start - (start-end)*game.global.score/score, end);
-			    
+            
+			  
 			this.addEnemy();
 			this.nextEnemy = game.time.now + delay;
 		}
@@ -70,10 +73,14 @@ var playState = {
 		if (this.cursor.left.isDown || this.wasd.left.isDown) {
 			this.player.body.velocity.x = -200;
 			this.player.animations.play('left');
+            
 		}
 		else if (this.cursor.right.isDown || this.wasd.right.isDown) {
 			this.player.body.velocity.x = 200;
 			this.player.animations.play('right');
+            
+            //game.camera.x += 4;
+            game.camera.x = this.player.body.position.x;
 		}
 		else {
 			this.player.body.velocity.x = 0;
@@ -158,15 +165,12 @@ var playState = {
 		game.state.start('menu');
 	},
     
-	createWorld: function() {        
+	createWorld: function() {     
+        console.log("MAP");
         this.map = game.add.tilemap('map');
-        this.map.addTilesetImage('Tileset'); 
+        this.map.addTilesetImage('tileset'); 
         this.layer = this.map.createLayer('Tile Layer 1');
         this.layer.resizeWorld();
         this.map.setCollision(1);
-        
-        //game.physics.arcade.enable(map);
-		game.physics.arcade.collide(this.player, this.layer);
-        game.physics.arcade.collide(this.enemies, this.layer);
 	}
 };
