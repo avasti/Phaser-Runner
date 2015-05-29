@@ -60,7 +60,7 @@ var playState = {
         game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.enemies, this.layer);
         game.physics.arcade.collide(this.enemiesfast, this.layer);
-
+        
 		if (!this.player.inWorld) {
 			this.playerDie();
 		}
@@ -114,7 +114,6 @@ var playState = {
 		enemy.body.gravity.y = 500;
 		enemy.body.bounce.x = 1;
 		enemy.body.velocity.x = 100 * Phaser.Math.randomSign();
-
 		enemy.checkWorldBounds = true;
 		enemy.outOfBoundsKill = true;
 	},
@@ -198,16 +197,28 @@ var playState = {
         this.map.addTilesetImage('tileset');
         this.layer = this.map.createLayer('Tile Layer 1');
        
-        this.layer.resizeWorld();
+        //Suelo
         this.map.setCollision(1);
+        //Caja
         this.map.setCollision(2);
+        //Cofre
         this.map.setCollision(3);
         //Diamante Rojo
         //this.map.setCollision(4);
         //Diamante azul
         //this.map.setCollision(5);
+        //Rocas
         this.map.setCollision(6);
+        //Trampa
         this.map.setCollision(7);
+    
+        //this.map.setTileIndexCallback(8, this.trap, this);
+     
 
-	}
+	},
+    
+    trap: function() {
+        console.log("Muerte");
+        //this.playerDie();
+    }
 };
