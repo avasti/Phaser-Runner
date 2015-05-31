@@ -89,8 +89,9 @@ var playState = {
 			this.player.animations.play('right');
             
             //game.camera.x += 4;
-            game.camera.x = this.player.body.position.x;
-		}
+            //game.camera.x = this.player.body.position.x;
+		      game.camera.follow(this.player);
+        }
 		else {
 			this.player.body.velocity.x = 0;
  			this.player.animations.stop(); 
