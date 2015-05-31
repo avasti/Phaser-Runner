@@ -29,7 +29,7 @@ var playState = {
 		this.enemiesfast.enableBody = true;
 		this.enemiesfast.createMultiple(1, 'enemyfast');
 
-		this.coin = game.add.sprite(60, 140, 'coin');
+		this.coin = game.add.sprite(200, 580, 'coin');
 		game.physics.arcade.enable(this.coin); 
 		this.coin.anchor.setTo(0.5, 0.5);
 
@@ -87,10 +87,9 @@ var playState = {
 		else if (this.cursor.right.isDown || this.wasd.right.isDown) {
 			this.player.body.velocity.x = 200;
 			this.player.animations.play('right');
-            
             //game.camera.x += 4;
             //game.camera.x = this.player.body.position.x;
-		      game.camera.follow(this.player);
+		    game.camera.follow(this.player);
         }
 		else {
 			this.player.body.velocity.x = 0;
@@ -155,12 +154,15 @@ var playState = {
 	},
 
 	updateCoinPosition: function() {
-		var coinPosition = [
-			{x: 140, y: 60}, {x: 360, y: 60}, 
-			{x: 60, y: 140}, {x: 440, y: 140}, 
-			{x: 130, y: 300}, {x: 370, y: 300} 
+		
+        var coinPosition = [
+			{x: 670, y: 430}, {x: 865, y: 430}, 
+			{x: 988, y: 550}, {x: 1248, y: 555},
+			{x: 2110, y: 480},{x: 3100, y: 600},
+            {x: 3200, y: 600},{x: 3300, y: 600},
+            {x: 3400, y: 600}
 		];
-
+        
 		for (var i = 0; i < coinPosition.length; i++) {
 			if (coinPosition[i].x === this.coin.x) {
 				coinPosition.splice(i, 1);
