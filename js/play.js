@@ -1,3 +1,5 @@
+var EnemiesCount = 4;
+
 var playState = {
     
 	create: function() { 
@@ -23,7 +25,9 @@ var playState = {
        
         this.enemies = game.add.group();
 		this.enemies.enableBody = true;
-		this.enemies.createMultiple(10, 'enemy');
+		this.enemies.createMultiple(4, 'enemy');
+        
+        this.addEnemy();
         
         this.enemiesfast = game.add.group();
 		this.enemiesfast.enableBody = true;
@@ -64,6 +68,7 @@ var playState = {
 		if (!this.player.inWorld) {
 			this.playerDie();
 		}
+        
         this.scoreLabel.x = this.player.position.x;
 		this.movePlayer();
 
@@ -71,8 +76,6 @@ var playState = {
 			var start = 4000, end = 1000, score = 100;
 			var delay = Math.max(start - (start-end)*game.global.score/score, end);
             
-			  
-			this.addEnemy();
             this.addEnemyFast();
 			this.nextEnemy = game.time.now + delay;
 		}
@@ -104,18 +107,19 @@ var playState = {
 	},
 
 	addEnemy: function() {
-		var enemy = this.enemies.getFirstDead();
-		if (!enemy) {
-			return;
-		}
-
-		enemy.anchor.setTo(0.5, 1);
-		enemy.reset(game.world.centerX, 0);
-		enemy.body.gravity.y = 500;
-		enemy.body.bounce.x = 1;
-		enemy.body.velocity.x = 100 * Phaser.Math.randomSign();
-		enemy.checkWorldBounds = true;
-		enemy.outOfBoundsKill = true;
+        var posX = [2800];
+        
+		for (var i = 0; i < EnemiesCount; i++) {
+             
+        enemy = this.enemies.create(posX[i],450,'enemy');
+             
+        enemy.body.gravity.y = 500;
+	    enemy.body.gravity.y = 500;
+	    enemy.body.bounce.x = 1;
+	    enemy.body.velocity.x = 100 * Phaser.Math.randomSign();
+	    enemy.checkWorldBounds = true;
+	    enemy.outOfBoundsKill = true;	
+        }
 	},
     
     addEnemyFast: function() {
@@ -154,7 +158,6 @@ var playState = {
 	},
 
 	updateCoinPosition: function() {
-		
         var coinPosition = [
 			{x: 670, y: 430}, {x: 865, y: 430}, 
 			{x: 988, y: 550}, {x: 1248, y: 555},
@@ -215,7 +218,7 @@ var playState = {
         //Trampa
         this.map.setCollision(7);
     
-        //this.map.setTileIndexCallback(8, this.trap, this);
+        //this.map.setTileIndexCallback(7, this.trap, this);
      
 
 	},
