@@ -1,4 +1,6 @@
 var EnemiesCount = 4;
+var EnemiesFastCount = 2;
+var DiamantesCount = 6;
 
 var playState = {
     
@@ -22,6 +24,11 @@ var playState = {
 		this.player.body.gravity.y = 500;
 		this.player.animations.add('right', [1, 2], 8, true);
 		this.player.animations.add('left', [3, 4], 8, true);
+        
+        this.diamantes = game.add.group();
+        this.diamantes.createMultiple(6, 'diamante');
+        
+        this.addDiamante();
        
         this.enemies = game.add.group();
 		this.enemies.enableBody = true;
@@ -31,7 +38,9 @@ var playState = {
         
         this.enemiesfast = game.add.group();
 		this.enemiesfast.enableBody = true;
-		this.enemiesfast.createMultiple(1, 'enemyfast');
+		this.enemiesfast.createMultiple(2, 'enemyfast');
+        
+        this.addEnemyFast();
 
 		this.coin = game.add.sprite(200, 580, 'coin');
 		game.physics.arcade.enable(this.coin); 
@@ -61,6 +70,7 @@ var playState = {
 		game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
         game.physics.arcade.overlap(this.player, this.enemiesfast, this.playerDie, null, this);
 		game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
+        game.physics.arcade.overlap(this.player, this.diamante, this.takeDiamant, null, this);
         game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.enemies, this.layer);
         game.physics.arcade.collide(this.enemiesfast, this.layer);
@@ -76,7 +86,6 @@ var playState = {
 			var start = 4000, end = 1000, score = 100;
 			var delay = Math.max(start - (start-end)*game.global.score/score, end);
             
-            this.addEnemyFast();
 			this.nextEnemy = game.time.now + delay;
 		}
 	},
@@ -90,8 +99,6 @@ var playState = {
 		else if (this.cursor.right.isDown || this.wasd.right.isDown) {
 			this.player.body.velocity.x = 200;
 			this.player.animations.play('right');
-            //game.camera.x += 4;
-            //game.camera.x = this.player.body.position.x;
 		    game.camera.follow(this.player);
         }
 		else {
@@ -107,13 +114,12 @@ var playState = {
 	},
 
 	addEnemy: function() {
-        var posX = [2800];
+        var posX = [2700,2800,3900,4000,5000];
         
 		for (var i = 0; i < EnemiesCount; i++) {
              
         enemy = this.enemies.create(posX[i],450,'enemy');
-             
-        enemy.body.gravity.y = 500;
+            
 	    enemy.body.gravity.y = 500;
 	    enemy.body.bounce.x = 1;
 	    enemy.body.velocity.x = 100 * Phaser.Math.randomSign();
@@ -123,20 +129,29 @@ var playState = {
 	},
     
     addEnemyFast: function() {
-		var enemyfast = this.enemiesfast.getFirstDead();
-		if (!enemyfast) {
-			return;
-		}
-
-		enemyfast.anchor.setTo(0.5, 1);
-		enemyfast.reset(game.world.centerX, 0);
+        var FastposX = [1800,4000];
+        
+        for (var i = 0; i < EnemiesFastCount; i++) {
+            
+        enemyfast = this.enemiesfast.create(FastposX[i],450,'enemyfast');    
+        
 		enemyfast.body.gravity.y = 500;
 		enemyfast.body.bounce.x = 1;
 		enemyfast.body.velocity.x = 200 * Phaser.Math.randomSign();
-
 		enemyfast.checkWorldBounds = true;
 		enemyfast.outOfBoundsKill = true;
+        }    
 	},
+    
+    addDiamante: function() {    
+         var DiamantposX = [320,510,1212,1410,1478,1538,2000,2685,2835,3150,3300,3450,3600,4062];
+        
+         for (var i = 0; i < DiamantesCount; i++) {
+         diamante = this.diamantes.create(DiamantposX[i],450,'diamante'); 
+        
+         diamante.checkWorldBounds = true;
+         }
+    },
 
 	takeCoin: function(player, coin) {
 		game.global.score += 5;
@@ -156,6 +171,12 @@ var playState = {
 		this.coin.scale.setTo(0, 0);
 		game.add.tween(this.coin.scale).to({x: 1, y:1}, 300).start();
 	},
+    
+    takeDiamant: function(player, diamantes) {
+        game.global.score += 5;  
+         console.log("Diamante");
+    
+    },
 
 	updateCoinPosition: function() {
         var coinPosition = [
