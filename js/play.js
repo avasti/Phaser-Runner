@@ -1,6 +1,7 @@
 var EnemiesCount = 4;
 var EnemiesFastCount = 2;
-var DiamantesCount = 6;
+var DiamondsCount = 6;
+var ChestWin = 1;
 
 var playState = {
     
@@ -25,10 +26,11 @@ var playState = {
 		this.player.animations.add('right', [1, 2], 8, true);
 		this.player.animations.add('left', [3, 4], 8, true);
         
-        this.diamantes = game.add.group();
-        this.diamantes.createMultiple(6, 'diamante');
+        this.diamonds = game.add.group();
+        this.diamonds.enableBody = true; 
+        this.diamonds.createMultiple(6, 'diamond');
         
-        this.addDiamante();
+        this.addDiamond();
        
         this.enemies = game.add.group();
 		this.enemies.enableBody = true;
@@ -41,12 +43,23 @@ var playState = {
 		this.enemiesfast.createMultiple(2, 'enemyfast');
         
         this.addEnemyFast();
+        
+        this.chests = game.add.group();
+        this.chests.enableBody = true;
+        this.chests.createMultiple(1, 'chest');
+        
+        this.addChest();
 
 		this.coin = game.add.sprite(200, 580, 'coin');
 		game.physics.arcade.enable(this.coin); 
 		this.coin.anchor.setTo(0.5, 0.5);
+        
+		this.scoreLabel = game.add.text(30, 30, 'score: 0', { font: '18px Arial', fill: '#ffffff' });
+        
+        this.intro = game.add.text(50, 100, 'Phaser Runner', { font: '30px Arial', fill: '#ffffff' });
+        
+        this.tutorial = game.add.text(50, 150, 'Arrow up to jump', { font: '30px Arial', fill: '#ffffff' });
 
-		this.scoreLabel = game.add.text(30, 30, 'score: 0', { font: '18px Arial', fill: '#ffffff' });	
 
 		this.emitter = game.add.emitter(0, 0, 15);
 		this.emitter.makeParticles('pixel');
@@ -69,8 +82,9 @@ var playState = {
 	update: function() {
 		game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
         game.physics.arcade.overlap(this.player, this.enemiesfast, this.playerDie, null, this);
+        game.physics.arcade.overlap(this.player, this.diamonds, this.takeDiamond, null, this);
+        game.physics.arcade.overlap(this.player, this.chests, this.takeChest, null, this);
 		game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
-        game.physics.arcade.overlap(this.player, this.diamante, this.takeDiamant, null, this);
         game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.enemies, this.layer);
         game.physics.arcade.collide(this.enemiesfast, this.layer);
@@ -129,7 +143,7 @@ var playState = {
 	},
     
     addEnemyFast: function() {
-        var FastposX = [1800,4000];
+        var FastposX = [1800,3800];
         
         for (var i = 0; i < EnemiesFastCount; i++) {
             
@@ -143,14 +157,20 @@ var playState = {
         }    
 	},
     
-    addDiamante: function() {    
-         var DiamantposX = [320,510,1212,1410,1478,1538,2000,2685,2835,3150,3300,3450,3600,4062];
+    addDiamond: function(diamantes) {    
+         var DiamondposX = [320,510,1212,1410,1478,1538,2000];
         
-         for (var i = 0; i < DiamantesCount; i++) {
-         diamante = this.diamantes.create(DiamantposX[i],450,'diamante'); 
-        
-         diamante.checkWorldBounds = true;
+         for (var i = 0; i < DiamondsCount; i++) {
+         diamond = this.diamonds.create(DiamondposX[i],450,'diamond'); 
          }
+    },
+    
+    addChest: function() {
+        var ChestposX = [4160];
+        
+         for (var i = 0; i < ChestWin; i++) {
+         chest = this.chests.create(ChestposX[i],450,'chest'); 
+         }    
     },
 
 	takeCoin: function(player, coin) {
@@ -172,15 +192,24 @@ var playState = {
 		game.add.tween(this.coin.scale).to({x: 1, y:1}, 300).start();
 	},
     
-    takeDiamant: function(player, diamantes) {
-        game.global.score += 5;  
-         console.log("Diamante");
+    takeDiamond: function(player, diamond) {
+        game.global.score += 5; 
+        this.emitter.x = this.scoreLabel.x;
+		this.emitter.y = this.scoreLabel.y;
+		this.emitter.start(true, 600, null, 15);
+        this.scoreLabel.text = 'score: ' + game.global.score;
+        this.coinSound.play();
+        diamond.kill();
+    },
     
+    takeChest: function(player, chest) {
+        game.state.start('menu');
+        console.log("FINAL");
+        
     },
 
 	updateCoinPosition: function() {
         var coinPosition = [
-			{x: 670, y: 430}, {x: 865, y: 430}, 
 			{x: 988, y: 550}, {x: 1248, y: 555},
 			{x: 2110, y: 480},{x: 3100, y: 600},
             {x: 3200, y: 600},{x: 3300, y: 600},
@@ -238,10 +267,7 @@ var playState = {
         this.map.setCollision(6);
         //Trampa
         this.map.setCollision(7);
-    
         //this.map.setTileIndexCallback(7, this.trap, this);
-     
-
 	},
     
     trap: function() {
