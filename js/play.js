@@ -26,6 +26,13 @@ var playState = {
 		this.player.animations.add('right', [1, 2], 8, true);
 		this.player.animations.add('left', [3, 4], 8, true);
         
+        this.player2 = game.add.sprite(40, game.world.centerY, 'player2');
+		game.physics.arcade.enable(this.player2); 
+		this.player2.anchor.setTo(0.5, 0.5);
+		this.player2.body.gravity.y = 500;
+		this.player2.animations.add('right', [1, 2], 8, true);
+		this.player2.animations.add('left', [3, 4], 8, true);
+        
         this.diamonds = game.add.group();
         this.diamonds.enableBody = true; 
         this.diamonds.createMultiple(6, 'diamond');
@@ -86,15 +93,28 @@ var playState = {
         game.physics.arcade.overlap(this.player, this.chests, this.takeChest, null, this);
 		game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
         game.physics.arcade.collide(this.player, this.layer);
+        
+        game.physics.arcade.overlap(this.player2, this.enemies, this.playerDie, null, this);
+        game.physics.arcade.overlap(this.player2, this.enemiesfast, this.playerDie, null, this);
+        game.physics.arcade.overlap(this.player2, this.diamonds, this.takeDiamond, null, this);
+        game.physics.arcade.overlap(this.player2, this.chests, this.takeChest, null, this);
+		game.physics.arcade.overlap(this.player2, this.coin, this.takeCoin, null, this);
+        game.physics.arcade.collide(this.player2, this.layer);
+        
         game.physics.arcade.collide(this.enemies, this.layer);
         game.physics.arcade.collide(this.enemiesfast, this.layer);
-        
+                
 		if (!this.player.inWorld) {
+			this.playerDie();
+		}
+        
+        if (!this.player2.inWorld) {
 			this.playerDie();
 		}
         
         this.scoreLabel.x = this.player.position.x;
 		this.movePlayer();
+        this.movePlayer2();
 
 		if (this.nextEnemy < game.time.now) {
 			var start = 4000, end = 1000, score = 100;
@@ -105,12 +125,12 @@ var playState = {
 	},
 
 	movePlayer: function() {
-		if (this.cursor.left.isDown || this.wasd.left.isDown) {
+		if (this.cursor.left.isDown) {
 			this.player.body.velocity.x = -200;
 			this.player.animations.play('left');
             
 		}
-		else if (this.cursor.right.isDown || this.wasd.right.isDown) {
+		else if (this.cursor.right.isDown) {
 			this.player.body.velocity.x = 200;
 			this.player.animations.play('right');
 		    game.camera.follow(this.player);
@@ -121,9 +141,32 @@ var playState = {
 	        this.player.frame = 0; 
 		}
 		
-		if ((this.cursor.up.isDown || this.wasd.up.isDown) && this.player.body.onFloor()) {
+		if ((this.cursor.up.isDown) && this.player.body.onFloor()) {
 			this.jumpSound.play();
 			this.player.body.velocity.y = -320;
+		}
+	},
+    
+    movePlayer2: function() {
+		if (this.wasd.left.isDown) {
+			this.player2.body.velocity.x = -200;
+			this.player2.animations.play('left');
+            
+		}
+		else if (this.wasd.right.isDown) {
+			this.player2.body.velocity.x = 200;
+			this.player2.animations.play('right');
+		    game.camera.follow(this.player);
+        }
+		else {
+			this.player2.body.velocity.x = 0;
+ 			this.player2.animations.stop(); 
+	        this.player2.frame = 0; 
+		}
+		
+		if ((this.wasd.up.isDown) && this.player2.body.onFloor()) {
+			this.jumpSound.play();
+			this.player2.body.velocity.y = -320;
 		}
 	},
 
@@ -194,19 +237,21 @@ var playState = {
     
     takeDiamond: function(player, diamond) {
         game.global.score += 5; 
+        
         this.emitter.x = this.scoreLabel.x;
 		this.emitter.y = this.scoreLabel.y;
 		this.emitter.start(true, 600, null, 15);
         this.scoreLabel.text = 'score: ' + game.global.score;
         this.coinSound.play();
+        
         diamond.kill();
     },
     
     takeChest: function(player, chest) {
-        game.state.start('menu');
-        console.log("FINAL");
-        
-    },
+        this.game.state.start('menu');
+        this.bsoSound.stop();
+        this.mensaje = game.add.text(50, 150, 'LEVEL COMPLETED', { font: '50px Arial', fill: '#ffffff' }); 
+     },
 
 	updateCoinPosition: function() {
         var coinPosition = [
@@ -243,8 +288,18 @@ var playState = {
 	},
 
 	startMenu: function() {
-        align: "center"
 		game.state.start('menu');
+	},
+    
+    trampa: function() {
+		this.player.kill();
+        this.deadSound.play();
+		this.emitter.x = this.player.x;
+		this.emitter.y = this.player.y;
+		this.emitter.start(true, 600, null, 15);
+        this.bsoSound.stop();
+        
+		game.time.events.add(1000, this.startMenu, this);
 	},
         
 	createWorld: function() {     
@@ -266,12 +321,7 @@ var playState = {
         //Rocas
         this.map.setCollision(6);
         //Trampa
-        this.map.setCollision(7);
-        //this.map.setTileIndexCallback(7, this.trap, this);
+        this.map.setCollision(7); 
+        this.map.setTileIndexCallback(7, this.trampa, this);
 	},
-    
-    trap: function() {
-        console.log("Muerte");
-        //this.playerDie();
-    }
 };

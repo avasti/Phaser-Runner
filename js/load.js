@@ -11,6 +11,7 @@ var loadState = {
         game.load.image('tileset', 'assets/tileset.png');
         game.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
 		game.load.spritesheet('player', 'assets/player2.png', 20, 20);
+        game.load.spritesheet('player2', 'assets/player2.png', 20, 20);
         game.load.image('diamond', 'assets/diamante.png');
         game.load.image('chest', 'assets/chest.png');
 		game.load.image('enemy', 'assets/enemy.png');
